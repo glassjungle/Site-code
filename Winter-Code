@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="clock.js" defer></script>
+		<link
+			href="https://glassy-website.nekoweb.org/clock.css"
+			rel="stylesheet"
+			type="text/css"
+			media="all"
+		/>
+		<link rel="icon" type="image/png" href="" />
+		<title></title>
+
+		<style>
+
+			 /* unvisited link */
+			a:link {
+			  color: #0d6d3f;
+			}
+
+			/* visited link */
+			a:visited {
+			  color: #bd0609;
+			}
+
+			/* mouse over link */
+			a:hover {
+			  color: #0d6d3f;
+			}
+
+			/* selected link */
+			a:active {
+			  color: #0d6d3f;
+			}
+
+			body {
+			background-image: url('https://64.media.tumblr.com/4409291820d932eb0d1560f2ed633936/00e09d5f26ce2af4-64/s1280x1920/a21067b67909b494001c5d73e5d206070a055c3b.pnj') ;
+			background-repeat: no-repeat;
+			background-size: cover;
+			font-family:ms ui gothic;
+			color:white;
+			font-size:16px;
+			 cursor: url("http://www.rw-designer.com/cursor-view/136980.png"), auto;
+			}
+
+			.container {
+			  display: grid;
+			  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			  grid-template-rows: 1.3fr 0.2fr 1.7fr 0.8fr 1.7fr 0.3fr;
+			  gap: 10px 10px;
+			  grid-auto-flow: row;
+			  grid-template-areas:
+			    "header header header header header"
+			    "marquee marquee marquee marquee marquee"
+			    "nav content content content g"
+			    "nav content content content stats"
+			    "animelist content content content stats"
+			    "footer footer footer footer footer";
+			    border:0px solid black;
+			    margin:auto;
+			    padding:0px;
+			    width:1000px;
+			    height:900px;
+			    margin-top:100px;
+			    position:relative;
+			}
+
+			.header {
+			grid-area: header;
+			border:1px solid black;
+			background-image:url("https://file.garden/ZlKCRJrkUEDiwwUh/Website%20Images/2.png");
+			height:258px;
+			
+			background-color:black;
+			
+			}
+
+			.nav {
+			grid-area: nav;
+			border:1px solid black;
+			background-color:#5f100f;
+			padding:5px;
+			border-radius:5px;
+			}
+
+			.animelist {
+			grid-area: animelist;
+			border:1px solid black;
+			background-color:#5f100f;
+			overflow:auto;
+			text-align:center;
+			padding:5px;
+			border-radius:5px;
+			}
+
+			.g {
+			grid-area: g;
+			border:1px solid black;
+			background-color:#5f100f;
+			padding:5px;
+			border-radius:5px;
+			}
+ .floating-Image {
+ 	position:absolute;
+			top:653px;
+			left:921px;
+			z-index:1
+			
+ }
+			.stats {
+			grid-area: stats;
+			border:1px solid black;
+			background-color:#5f100f;
+			padding:5px;
+			border-radius:5px;
+			}
+
+			.content {
+			grid-area: content;
+			border:1px solid black;
+			background-color:#6c1110;
+			padding:5px;
+			text-align:center;
+			border-radius:5px;
+			}
+
+			.footer {
+			grid-area: footer;
+			border:1px solid black;
+			background-image:url("https://garden.spoonflower.com/c/13806373/p/f/m/UNNfI2caDQESQBdFWM5eZvCznMH4v4ND7XmL2yF1t0DA1iXBTqmG/_Ugly_Christmas_Sweater_Pattern%2C_Xmas_Fabric%2C_X-mas_Nostalgy%2C_winter_red.jpg");
+			padding:2px;
+			border-radius:10px;
+			text-align:center;
+			width="498" 
+			height="90"
+			}
+
+			.marquee {
+			grid-area: marquee;
+			border:1px solid black;
+			background-color:white;
+			color:black;
+			padding:5px;
+			}
+
+			.button {
+			padding: 15px;
+			border: 0px solid black;
+			font-family: Ms Ui Gothic;
+			margin:auto;
+			margin-top:30px;
+			background-color:white;
+			width:400px;
+			background-color:#8d1917;
+			}
+
+			.update {
+			background-color:#8d1917;
+			height:100px;
+			padding:10px;
+			overflow:auto;
+			margin-top:40px;
+			}
+
+			#clock-container {
+			position:absolute;
+			top:-140px;
+			left:-450px;
+			z-index:1
+			}
+
+			ul {
+			  list-style-type: none;
+			  padding-left:5px;
+			}
+
+			h3 {
+			  background: -webkit-linear-gradient(90deg, #fbcd5d, #f09333,#d84309);
+			  -webkit-background-clip: text;
+			  -webkit-text-fill-color: transparent;
+
+			  &.outline {
+				transform: translate(2px, 2px);
+				background: #555;
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			 	-webkit-text-stroke-width: 2px;
+				-webkit-text-stroke-color: #c2a6bb;
+			text-align:center;
+			}
+	/* customizable snowflake styling */
+
+		</style>
+		<style>
+/* customizable snowflake styling */
+.snowflake {
+  color: #fff;
+  font-size: 2em;
+  font-family: Arial, sans-serif;
+  text-shadow: 0 0 5px #000;
+}
+
+.snowflake,.snowflake .inner{animation-iteration-count:infinite;animation-play-state:running}@keyframes snowflakes-fall{0%{transform:translateY(0)}100%{transform:translateY(110vh)}}@keyframes snowflakes-shake{0%,100%{transform:translateX(0)}50%{transform:translateX(80px)}}.snowflake{position:fixed;top:-10%;z-index:9999;-webkit-user-select:none;user-select:none;cursor:default;animation-name:snowflakes-shake;animation-duration:3s;animation-timing-function:ease-in-out}.snowflake .inner{animation-duration:10s;animation-name:snowflakes-fall;animation-timing-function:linear}.snowflake:nth-of-type(0){left:1%;animation-delay:0s}.snowflake:nth-of-type(0) .inner{animation-delay:0s}.snowflake:first-of-type{left:10%;animation-delay:1s}.snowflake:first-of-type .inner,.snowflake:nth-of-type(8) .inner{animation-delay:1s}.snowflake:nth-of-type(2){left:20%;animation-delay:.5s}.snowflake:nth-of-type(2) .inner,.snowflake:nth-of-type(6) .inner{animation-delay:6s}.snowflake:nth-of-type(3){left:30%;animation-delay:2s}.snowflake:nth-of-type(11) .inner,.snowflake:nth-of-type(3) .inner{animation-delay:4s}.snowflake:nth-of-type(4){left:40%;animation-delay:2s}.snowflake:nth-of-type(10) .inner,.snowflake:nth-of-type(4) .inner{animation-delay:2s}.snowflake:nth-of-type(5){left:50%;animation-delay:3s}.snowflake:nth-of-type(5) .inner{animation-delay:8s}.snowflake:nth-of-type(6){left:60%;animation-delay:2s}.snowflake:nth-of-type(7){left:70%;animation-delay:1s}.snowflake:nth-of-type(7) .inner{animation-delay:2.5s}.snowflake:nth-of-type(8){left:80%;animation-delay:0s}.snowflake:nth-of-type(9){left:90%;animation-delay:1.5s}.snowflake:nth-of-type(9) .inner{animation-delay:3s}.snowflake:nth-of-type(10){left:25%;animation-delay:0s}.snowflake:nth-of-type(11){left:65%;animation-delay:2.5s}
+</style>
+<div class="snowflakes" aria-hidden="true">
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+ <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  
+  </div>
+ </div>
+	</head>
+
+	<body>
+		 
+		  
+		<div class="container">
+			<div id="clock-container">
+				<div id="ac-clock">
+					<img
+						id="day-night"
+						src="https://file.garden/ZjYZ6HBkUxBjUnYy/ac-clock/day.png"
+					/>
+					<img
+						id="second"
+						style="opacity: 0.2; transform: rotate(198deg);"
+						src="https://file.garden/ZjYZ6HBkUxBjUnYy/ac-clock/minute.png"
+					/>
+					<img
+						id="minute"
+						src="https://file.garden/ZjYZ6HBkUxBjUnYy/ac-clock/minute.png"
+						style="transform: rotate(321.2deg);"
+					/>
+					<img
+						id="hour"
+						src="https://file.garden/ZjYZ6HBkUxBjUnYy/ac-clock/hour.png"
+						style="transform: rotate(259deg);"
+					/>
+					<div id="month">11</div>
+					<div id="slash">/</div>
+					<div id="date">8</div>
+					<div id="day">金</div>
+				</div>
+			</div>
+
+			<div class="header"></div>
+
+			<div class="nav">
+				<h3 style="text-align:center;">Navigation</h3>
+				<ul style="text-align:center;">
+					<li><b>
+						<a href="https://glassy-website.nekoweb.org/">
+							Homepage
+						</a>
+					</li>
+					<li>
+						<a
+							href="https://glassy-website.nekoweb.org/webmaster.html"
+						>
+							Webmaster
+						</a>
+					</li>
+					<li>
+						<a href="https://www.tumblr.com/blog/glassjustrambles">
+							Blog
+						</a>
+					</li>
+					<li>
+						<a href="https://glassjungle.atabook.org/">Guestbook</a>
+					</li>
+					<li>
+						<a href="https://glassy-website.nekoweb.org/creditandbuttons.html">
+							Credit and Buttons
+						</a>
+					</li>
+					<li>
+						<a href="https://bsky.app/profile/glassy-website.nekoweb.org">
+							Bluesky
+						</a>
+					</li>
+					<li>
+						<a href="https://www.twitch.tv/glassjunglelive">
+							Twitch
+						</a>
+					</li>
+					<li>
+						<a
+							href="https://www.chickensmoothie.com/Forum/memberlist.php?mode=viewprofile&amp;u=1116388"
+						>
+							Chicken Smoothie
+						</a>
+					</li>
+					<li>
+						<a
+							href="https://www.roblox.com/users/191973031/profilec"
+						>
+							Roblox
+						</a>
+					</li>
+					<li>
+						<a
+							href="https://www.lioden.com/territory.php"
+						>
+							Lioden
+						</a>
+					</li>
+					</b>
+				</ul>
+			</div>
+
+			<div class="animelist">
+				<h3>Anime Watchlist</h3>
+				Himouto! Umaru-Chan - [WATCHING]
+				<br />
+				<br />
+				Serial Experiments Lain - [FINISHED]
+				<br />
+				<br />
+				Cowboy Bebop - [FINISHED]
+				<br />
+				<br />
+				Lucky Star! - [FINISHED]
+			</div>
+
+			<div class="g">
+				<center>
+					<img
+						src="https://images.squarespace-cdn.com/content/v1/5737ad2a1d07c093e2787063/1671580101177-0L7ZGJOUIUPEEG7O3YM9/Jamaaliday+lights+deer.png"
+						width="110"
+					/>
+					<br />
+					<font color="#0d6d3f"><b>Glass</b></font>
+				</center>
+				<br />
+				<font color="white">
+					Hellooo! :3 My name is glass i am the webmaster of this
+					site!
+				</font>
+			</div>
+			<div class="floating-Image">
+ <img src="https://www.pngkey.com/png/full/547-5471276_jamaaliday-spiral-hedge-green-portable-network-graphics.png" height="200"
+			width="100"/> 
+ </div>
+			<div class="stats">
+				<h3><center>Stats!</center></h3>
+
+				<p id="created">
+					<em>Created</em>
+					:
+				</p>
+				<p id="updated">
+					<em>Updated</em>
+					:
+				</p>
+				<p id="visitors">
+					<em>Visits</em>
+					:
+				</p>
+				<p id="followers">
+					<em>Followers</em>
+					:
+				</p>
+			</div>
+
+			<div class="content">
+				<h3>Welcome!</h3>
+				<font color="#0d6d3f">
+					<b>
+						Exuse the mess! I really need to clean up this place...
+					</b>
+				</font>
+				<br />
+
+				<font color="white">My name is</font>
+				<font color="#0d6d3f"><b>glassjungle! ☆</b></font>
+				<font color="white">
+					I hope you enjoy my little corner of the web! I go by
+					(he/him) pronouns! ≽^•⩊•^≼
+				</font>
+				<br />
+				<br />
+				<font color="white">Check out the other links in the</font>
+				<b><font color="#0d6d3f">navigation bar</font></b>
+				<font color="white">
+					to the left! You may be able to catch my streams someday!
+				</font>
+				<br />
+				<br />
+
+				<div class="button">
+					<font color="#ec862c" style="font-size:14px;">
+					<b>	My button wants to explore the internet, take it with
+						you!</b>
+					</font>
+					<br />
+					<br />
+					<a href="https://glassy-website.nekoweb.org">
+						<img
+							src="https://file.garden/ZlKCRJrkUEDiwwUh/Website%20Images/2024_06_28_129_Kleki.png"
+						/>
+					</a>
+					<textarea>
+ &lt;a href="https://glassywebsite.nekoweb.org "> &lt;img src="https://file.garden/ZlKCRJrkUEDiwwUh/2024_06_28_129_Kleki.png"&gt;&lt;/a&gt;
+</textarea
+					>
+				</div>
+
+				<div class="update">
+					<font color="#0d6d3f"><h3>Update Log</h3></font>
+					<center>
+						<p>
+							<b><font color="#0d6d3f">12/20/24</font></b>
+							The winter theme is here finally! And as you can see it is Jamaalidays based!
+						</p>
+					</center>
+				</div>
+			</div>
+
+			<div class="footer"> </div>
+
+			<div class="marquee">
+				<marquee width="100%" direction="left">
+					Welcome to my website!
+					<font color="#0d6d3f"> Happy Jamaalidays! </font>
+				</marquee>
+			</div>
+		</div>
+
+		
+			<script>
+
+				let username = "glassy-website"; // <<<--- Insert your username here!
+
+				(async () => {
+				  try {
+				    const request = await fetch(`https://nekoweb.org/api/site/info/${username}`);
+				    const json = await request.json();
+
+				    const updated = new Date(json.updated_at).toLocaleDateString(); // Formats Last Updated text
+				    const created = new Date(json.created_at).toLocaleDateString(); // Formats Creation Date text
+				    if (document.getElementById("created")) document.getElementById("created").innerHTML = `<em>Created</em>: ${created}`;
+				    if (document.getElementById("updated")) document.getElementById("updated").innerHTML = `<em>Updated</em>: ${updated}`;
+				    if (document.getElementById("visitors")) document.getElementById("visitors").innerHTML = `<em>Visits</em>: ${json.views}`;
+				    if (document.getElementById("followers")) document.getElementById("followers").innerHTML = `<em>Followers</em>: ${json.followers}`;
+				  } catch (error) {
+				    console.error(error);
+				    // If you wish to insert some fallback here, you may do so!
+				  }
+				})();
+			</script>
+		</div>
+	</body>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+</html>
